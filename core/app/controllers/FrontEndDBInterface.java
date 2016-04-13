@@ -178,7 +178,7 @@ public class FrontEndDBInterface {
     
     
     /** Stores the received configuration in the MySQL configurations table and taskvariants table. */
-    public void insertConfigToDB(String datasetName, String configName, String description, String evaluator, String taskType, String taskVariant, String teamName) {
+    public long insertConfigToDB(String datasetName, String configName, String description, String evaluator, String taskType, String taskVariant, String teamName) {
         try {            
             Connection conn = getConnection();
             
@@ -195,7 +195,12 @@ public class FrontEndDBInterface {
             stmt.setString(8, teamName);
             stmt.executeUpdate();
             
+            ResultSet idRS = stmt.getGeneratedKeys();
+            idRS.first();
+            long id = idRS.getLong(1);
+            
             conn.close();
+            return id;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

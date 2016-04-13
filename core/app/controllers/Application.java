@@ -118,14 +118,15 @@ public class Application extends Controller {
         
         String evaluator = f.getEvaluator(taskName, taskVariant);
 
+        long newConfigID;
         try {
-            f.insertConfigToDB(bindedForm.get("dataset"), bindedForm.get("configurationname"),
+            newConfigID = f.insertConfigToDB(bindedForm.get("dataset"), bindedForm.get("configurationname"),
                     bindedForm.get("description"), evaluator, taskName, taskVariant, teamName);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        return redirect("/");
+        return redirect("/configuration?conf=" + newConfigID);
     }
 
     @Security.Authenticated(Secured.class)
@@ -313,8 +314,8 @@ public class Application extends Controller {
 
         teamNames.add("team NN1");
         teamNames.add("team NN2");
-        teamNames.add("team CRF1");
-        teamNames.add("team CRF2");
+        teamNames.add("team CCM1");
+        teamNames.add("team CCM2");
         teamNames.add("team Perc1");
         teamNames.add("team Perc2");
         teamNames.add("team SVM1");
