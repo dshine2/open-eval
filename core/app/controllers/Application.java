@@ -129,11 +129,7 @@ public class Application extends Controller {
         return redirect("/configuration?conf=" + newConfigID);
     }
 
-    @Security.Authenticated(Secured.class)
     public Result configuration(String configuration_id) {
-        if (!Secured.canAccess(request().username(), configuration_id)) {
-            return this.authError();
-        }
         RecipeViewModel viewModel = new RecipeViewModel();
         FrontEndDBInterface f = new FrontEndDBInterface();
         models.Configuration conf;
@@ -303,10 +299,6 @@ public class Application extends Controller {
         FrontEndDBInterface f = new FrontEndDBInterface();
         f.deleteRecordFromRecordID(Integer.parseInt(record_id));
         return redirect("/configuration?conf=" + conf_id);
-    }
-
-    public Result about() {
-        return ok(about.render());
     }
 
     private List<String> getTeamNames() {
