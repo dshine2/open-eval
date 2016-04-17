@@ -26,6 +26,8 @@ import akka.*;
 import play.mvc.Controller;
 import javax.inject.*;
 
+import controllers.readers.Reader;
+
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import static akka.pattern.Patterns.ask;
@@ -59,6 +61,10 @@ public class Application extends Controller {
     // eventually things should all be seperated into a class, and this should be at the class level
     @Security.Authenticated(Secured.class)
     public Result index() {
+        Reader reader = new Reader();
+        //List<TextAnnotation> textAnnotations = reader.getTextAnnotationFromDBPartial("ace-2005", 1);
+        
+        
         IndexViewModel viewModel = new IndexViewModel();
         viewModel.configurations = getConfigurations();
         return ok(index.render(viewModel));

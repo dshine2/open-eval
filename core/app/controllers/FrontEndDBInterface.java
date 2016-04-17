@@ -399,7 +399,7 @@ public class FrontEndDBInterface {
             recordsRS.first();
             
             models.Record record = new models.Record(Integer.toString(record_id), recordsRS.getTimestamp(1).toString(), recordsRS.getString(2), 
-                recordsRS.getString(3), recordsRS.getString(4), metrics, recordsRS.getString(5), recordsRS.getBoolean(6));
+                recordsRS.getString(3), recordsRS.getString(4), metrics, /*Integer.toString(recordsRS.getInt(5))*/ recordsRS.getString(5), recordsRS.getBoolean(6));
                 
             conn.close();
             return record;
